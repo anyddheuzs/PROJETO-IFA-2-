@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revista Visão Tech | Acessibilidade Digital & Robótica Assistiva</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ATALHOS DE TECLADO RÁPIDOS PARA NAVEGAÇÃO -->
+    <div class="atalhos-navegacao">
+        <a href="#conteudo-principal" class="link-atalho">Ir para o conteúdo principal [1]</a>
+        <a href="#menu-categorias" class="link-atalho">Ir para o menu de seções [2]</a>
+        <a href="#rodape" class="link-atalho">Ir para o rodapé [3]</a>
+    </div>
+
+    <!-- CENTRAL DE ACESSIBILIDADE FIXA (ESTILO GOVERNO / ENEM PARANÁ) -->
+    <header class="barra-acessibilidade-enem" role="banner">
+        <div class="container-acessibilidade">
+            <div class="marca-governo">
+                <span class="simbolo-acessibilidade-topo" aria-hidden="true">♿</span>
+                <span class="uf-tag">PARANÁ</span>
+                <span class="projeto-tag">Central de Acessibilidade Digital</span>
+            </div>
+
+            <div class="controles-acessibilidade" role="toolbar" aria-label="Central de Acessibilidade Superior">
+                <div class="grupo-controle" aria-label="Ajuste do tamanho de texto">
+                    <button id="btnAumentaTexto" class="btn-acessivel" title="Aumentar Fonte" aria-label="Aumentar tamanho do texto">A+</button>
+                    <button id="btnResetTexto" class="btn-acessivel" title="Tamanho Padrão" aria-label="Restaurar tamanho do texto">A</button>
+                    <button id="btnDiminuiTexto" class="btn-acessivel" title="Diminuir Fonte" aria-label="Diminuir tamanho do texto">A-</button>
+                </div>
+
+                <div class="grupo-controle">
+                    <button id="btnContraste" class="btn-acessivel" aria-pressed="false" aria-label="Alternar para Alto Contraste">
+                        <span aria-hidden="true">◑</span> Alto Contraste
+                    </button>
+                </div>
+
+                <div class="grupo-controle">
+                    <label for="seletorDaltonismo" class="sr-only">Selecione o filtro de daltonismo:</label>
+                    <select id="seletorDaltonismo" class="select-acessivel" aria-label="Simular filtro para daltonismo">
+                        <option value="nenhum">Visão Padrão</option>
+                        <option value="deuteranopia">Deuteranopia (Verde)</option>
+                        <option value="protanopia">Protanopia (Vermelho)</option>
+                        <option value="tritanopia">Tritanopia (Azul/Amarelo)</option>
+                    </select>
+                </div>
+
+                <div class="grupo-controle">
+                    <button id="btnVoz" class="btn-acessivel btn-destaque" aria-label="Ouvir conteúdo da revista em voz alta">
+                        <span aria-hidden="true">🔊</span> Ouvir Revista
+                    </button>
+                    <button onclick="pararLeitura()" class="btn-acessivel" aria-label="Parar leitura em voz alta">Parar</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BOTÃO FLUTUANTE DE ACESSIBILIDADE PERMANENTE (CANTO DA TELA) -->
+    <div class="widget-acessibilidade-flutuante">
+        <button id="btnWidgetFlutuante" class="btn-widget-toggle" aria-expanded="false" aria-label="Abrir Painel Flutuante de Acessibilidade">
+            <span class="icone-widget" aria-hidden="true">♿</span>
+            <span class="texto-widget">Acessibilidade</span>
+        </button>
+
+        <div id="painelWidget" class="painel-widget-conteudo" hidden>
+            <h3><span aria-hidden="true">♿</span> Painel Rápido</h3>
+            <div class="widget-opcoes">
+                <button onclick="document.getElementById('btnAumentaTexto').click()">A+ Aumentar Texto</button>
+                <button onclick="document.getElementById('btnResetTexto').click()">A Texto Padrão</button>
+                <button onclick="document.getElementById('btnDiminuiTexto').click()">A- Diminuir Texto</button>
+                <button onclick="document.getElementById('btnContraste').click()">◑ Alto Contraste</button>
+                <button onclick="document.getElementById('btnVoz').click()">🔊 Ouvir Revista</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CABEÇALHO DA REVISTA -->
+    <header class="header-revista">
+        <div class="logo-container">
+            <div class="badge-acessibilidade-titulo">
+                <span aria-hidden="true">♿</span>
+                <span>Edição Especial • Anatomia Ocular & Robótica Assistiva</span>
+            </div>
+            <h1>VISÃO <span>TECH</span></h1>
+            <p class="subtitulo">A ciência dos olhos, as causas e consequências das alterações visuais e o papel da informática e programação na inclusão social</p>
+        </div>
+    </header>
+
+    <!-- MENU DE SEÇÕES -->
+    <nav id="menu-categorias" class="menu-categorias" aria-label="Categorias da Revista">
+        <ul>
+            <li><a href="#anatomia">1. Anatomia Ocular</a></li>
+            <li><a href="#problemas">2. Problemas & Causas</a></li>
+            <li><a href="#curiosidades">3. Curiosidades</a></li>
+            <li><a href="#dificuldades">4. Dificuldades & Público</a></li>
+            <li><a href="#robotica-projeto">5. Robótica & Sistema de Iluminação</a></li>
+            <li><button class="btn-emergencia" onclick="abrirModal()" aria-haspopup="dialog" aria-controls="modalAjuda">Preciso de Ajuda</button></li>
+        </ul>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL (LAYOUT HARMONIOSO EM COLUNAS) -->
+    <main id="conteudo-principal" tabindex="-1">
+
+        <!-- DESTAQUE DE CAPA -->
+        <section class="artigo-destaque" aria-labelledby="titulo-capa">
+            <div class="destaque-texto">
+                <span class="categoria-badge">Matéria de Capa</span>
+                <h2 id="titulo-capa">Tecnologia, Informática e Robótica Como Pontes Para a Autonomia Visual</h2>
+                <p>O site apresenta como a informática, a programação e a robótica podem contribuir para a inclusão social. Ele também divulga o protótipo de um corredor guiado com iluminação LED, pensado para ajudar pessoas com baixa visão a identificar o caminho até uma saída.</p>
+            </div>
+        </section>
+
+        <hr class="divisor" aria-hidden="true">
+
+        <!-- GRID DE ARTIGOS (LADO A LADO) -->
+        <div class="artigos-grid-simetrico">
+
+            <!-- COLUNA 1: ANATOMIA -->
+            <article id="anatomia" class="card-artigo" tabindex="0">
+                <div class="card-tag">Anatomia Ocular</div>
+                <h3>1. A Estrutura do Olho Humano</h3>
+                <p>O olho funciona como um sistema ótico complexo que capta a luz e a transforma em impulsos elétricos:</p>
+                <ul>
+                    <li><strong>Córnea:</strong> Lente transparente externa que foca a luz no olho.</li>
+                    <li><strong>Íris e Pupila:</strong> Controlam a quantidade de luz que entra no globo ocular.</li>
+                    <li><strong>Cristalino:</strong> Lente natural que ajusta o foco para objetos perto ou longe.</li>
+                    <li><strong>Retina:</strong> Camada posterior composta por fotorreceptores:
+                        <ul>
+                            <li><strong>Cones:</strong> Responsáveis pelas cores (vermelho, verde e azul) e nitidez.</li>
+                            <li><strong>Bastonetes:</strong> Responsáveis pela visão noturna e movimento.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Nervo Óptico:</strong> Leva as informações elétricas para o cérebro.</li>
+                </ul>
+            </article>
+
+            <!-- COLUNA 2: PROBLEMAS E CAUSAS -->
+            <article id="problemas" class="card-artigo" tabindex="0">
+                <div class="card-tag">Diagnóstico & Patologias</div>
+                <h3>2. Problemas Visuais: Causas, Consequências e Quem é Afetado</h3>
+                <p>Anomalias de refração, fatores genéticos e doenças oculares afetam milhões de pessoas de todas as idades:</p>
+                <ul>
+                    <li><strong>Miopia e Hipermetropia:</strong> Causadas por alterações no formato do globo ocular. <em>Consequência:</em> Dificuldade para ver de longe ou de perto.</li>
+                    <li><strong>Astigmatismo:</strong> Curvatura irregular da córnea. <em>Consequência:</em> Visão desfocada em qualquer distância.</li>
+                    <li><strong>Daltonismo:</strong> Alteração genética nos cones. <em>Consequência:</em> Dificuldade para distinguir cores (como verde e vermelho).</li>
+                    <li><strong>Glaucoma e Catarata:</strong> Causadas por pressão intraocular alta ou opacificação do cristalino. <em>Consequência:</em> Perda gradual e progressiva da visão.</li>
+                    <li><strong>Quem é afetado:</strong> Pessoas com baixa visão ou cegueira parcial/total, impactando a mobilidade e a independência cotidiana.</li>
+                </ul>
+            </article>
+
+            <!-- COLUNA 3: CURIOSIDADES -->
+            <article id="curiosidades" class="card-artigo" tabindex="0">
+                <div class="card-tag">Ciência & Fatos</div>
+                <h3>3. Curiosidades Sobre a Visão</h3>
+                <ul>
+                    <li><strong>Imagens Invertidas:</strong> As imagens chegam de cabeça para baixo na retina e o cérebro encarrega-se de desvirá-las.</li>
+                    <li><strong>Ponto Cego:</strong> Existe uma pequena área sem fotorreceptores no fundo do olho que o cérebro preenche automaticamente.</li>
+                    <li><strong>Velocidade:</strong> Os músculos que movimentam os olhos são os mais rápidos e ativos de todo o corpo humano.</li>
+                </ul>
+            </article>
+
+            <!-- COLUNA 4: DIFICULDADES DIÁRIAS -->
+            <article id="dificuldades" class="card-artigo" tabindex="0">
+                <div class="card-tag">Desafios Sociais</div>
+                <h3>4. Dificuldades Enfrentadas no Cotidiano</h3>
+                <p>Pessoas com baixa visão enfrentam barreiras diárias significativas:</p>
+                <ul>
+                    <li><strong>Mobilidade Urbana:</strong> Falta de piso tátil, iluminação inadequada e saídas de emergência sem sinalização luminosa adequada.</li>
+                    <li><strong>Situações de Emergência:</strong> Em ambientes com pouca luz, encontrar rotas de fuga torna-se extremamente perigoso sem auxílio tecnológico.</li>
+                    <li><strong>Independência:</strong> Necessidade urgente de soluções práticas de engenharia e robótica para orientação em locais públicos.</li>
+                </ul>
+            </article>
+
+            <!-- PROJETO DE ROBÓTICA ASSISTIVA (LARGURA COMPLETA) -->
+            <article id="robotica-projeto" class="card-artigo destaque-tech" tabindex="0">
+                <div class="card-tag">Tecnologia Assistiva em Ação</div>
+                <h3>5. Sistema de Iluminação: Tecnologia, Acessibilidade e Segurança</h3>
+                
+                <p>O <strong>Sistema de Iluminação</strong> é um projeto de robótica desenvolvido para auxiliar pessoas com baixa visão a identificar e seguir um caminho seguro até uma saída de emergência. Utilizando sensores, LEDs e um microcontrolador Arduino, o sistema cria uma iluminação orientativa que reage dinamicamente à aproximação humana.</p>
+
+                <div style="margin: 20px 0; padding: 20px; background-color: var(--card-bg); border-left: 5px solid var(--primaria); border-radius: 6px;">
+                    <h4 style="margin-top: 0; color: var(--primaria);">🎯 O Problema que Queremos Resolver & Funcionamento</h4>
+                    <p>Em situações de emergência, encontrar uma saída pode ser desafiador, especialmente com pouca luz ou sinalização insuficiente. Nosso sistema baseia-se na leitura de distância de um <strong>sensor ultrassônico HC-SR04</strong> na entrada do corredor. Conforme a pessoa se aproxima, o <strong>Arduino Uno R3</strong> aciona progressivamente as regiões do corredor. A fita de LEDs destaca o caminho, enquanto LEDs vermelhos e um <strong>visor OLED I²C</strong> exibem as métricas de distância em tempo real.</p>
+                </div>
+
+                <!-- GALERIA EXPLICATIVA LADO A LADO COM OS 4 TÓPICOS SOLICITADOS -->
+                <h4 style="margin-top: 25px;">Galeria do Protótipo & Desenvolvimento Prático</h4>
+                <div class="galeria-revista-simetrica">
+                    
+                    <!-- FOTO 1: TRABALHO EM EQUIPE -->
+                    <div class="card-foto-revista">
+                        <img src="ifa 1.jpg" alt="Estudantes em sala de aula programando e testando o projeto nos notebooks">
+                        <div class="detalhes-foto">
+                            <h4>1. Trabalho em Equipe e Desenvolvimento</h4>
+                            <p>Toda a equipe trabalhou em conjunto para desenvolver o projeto, compartilhando ideias, realizando pesquisas e colaborando na programação e na montagem do protótipo.</p>
+                        </div>
+                    </div>
+
+                    <!-- FOTO 2: ANOTAÇÕES E DIÁRIO DE BORDO -->
+                    <div class="card-foto-revista">
+                        <img src="ifa 3.jpg" alt="Caderno com anotações e diário de bordo do projeto de robótica">
+                        <div class="detalhes-foto">
+                            <h4>2. Anotações e Materiais do Projeto</h4>
+                            <p>Registro das anotações, do planejamento e dos materiais necessários para a construção do projeto, como Arduino, sensores ultrassônicos, fita LED, fios e protoboard.</p>
+                        </div>
+                    </div>
+
+                    <!-- FOTO 3: MONTAGEM TÉCNICA DO CIRCUITO -->
+                    <div class="card-foto-revista">
+                        <img src="ifa.jpg" alt="Circuito eletrônico montado com Arduino, sensores e fita LED conectados ao notebook">
+                        <div class="detalhes-foto">
+                            <h4>3. Estrutura e Montagem da Maquete</h4>
+                            <p>Etapa em que a estrutura da maquete foi montada, organizando os componentes eletrônicos e preparando o espaço para a instalação dos sensores e da iluminação.</p>
+                        </div>
+                    </div>
+
+                    <!-- FOTO 4: PROJETO FINAL -->
+                    <div class="card-foto-revista">
+                        <img src="ifa 5.jpg" alt="Protótipo finalizado do Corredor Guiado com iluminação de fita LED acesa e sinalização para baixa visão">
+                        <div class="detalhes-foto">
+                            <h4>4. Projeto Finalizado e Código Pronto</h4>
+                            <p>Resultado final do projeto, com a maquete montada e o código de programação concluído, permitindo o funcionamento do sistema de iluminação para auxiliar na orientação de pessoas com baixa visão.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- DETALHES ADICIONAIS DO PROJETO -->
+                <div style="margin-top: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="background: var(--card-bg); padding: 15px; border-radius: 6px; border: 1px solid var(--borda-card);">
+                        <h4 style="color: var(--primaria); margin-top:0;">⚡ Materiais Utilizados</h4>
+                        <p style="font-size: 0.9rem; margin:0;">Arduino Uno R3, Sensor HC-SR04, Fita de LEDs, LEDs vermelhos, Visor OLED 0.96" I²C, protoboard, jumpers, resistores, cabo USB e estrutura de isopor/papelão.</p>
+                    </div>
+                    <div style="background: var(--card-bg); padding: 15px; border-radius: 6px; border: 1px solid var(--borda-card);">
+                        <h4 style="color: var(--primaria); margin-top:0;">💡 Impacto Social & Conclusão</h4>
+                        <p style="font-size: 0.9rem; margin:0;">Demonstra que a robótica e a tecnologia podem ser aplicadas para resolver desafios cotidianos, unindo inclusão social, segurança e inovação tecnológica.</p>
+                    </div>
+                </div>
+
+            </article>
+
+        </div>
+
+    </main>
+
+    <!-- MODAL POP-UP ACESSÍVEL -->
+    <div id="modalAjuda" class="modal-fundo" role="dialog" aria-modal="true" aria-labelledby="titulo-modal" hidden>
+        <section class="modal-conteudo">
+            <h2 id="titulo-modal"><span aria-hidden="true">♿</span> Cuidados Imediatos com a Saúde Ocular</h2>
+            <p>Se sentir dores intensas, visão embaçada ou flashes luminosos repentinos:</p>
+            <ol>
+                <li><strong>Procure um serviço de emergência oftalmológica imediatamente.</strong></li>
+                <li><strong>Não esfregue, pressione ou lave o olho sem orientação médica.</strong></li>
+                <li><strong>Não aplique colírios sem receita.</strong></li>
+            </ol>
+            <button id="btnFecharModal" class="btn-fechar" onclick="fecharModal()" aria-label="Fechar janela de aviso de emergência">Fechar Aviso</button>
+        </section>
+    </div>
+
+    <!-- RODAPÉ -->
+    <footer id="rodape" role="contentinfo">
+        <p><span aria-hidden="true">♿</span> <strong>Revista Digital Visão Tech</strong> — Projeto de Acessibilidade Digital & Robótica Assistiva</p>
+        <p>Desenvolvido em conformidade com as diretrizes internacionais da <strong>WCAG 2.1 (Level AA)</strong>.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

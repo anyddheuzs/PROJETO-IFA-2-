@@ -1,0 +1,510 @@
+/* ==========================================================================
+1. VARIÁVEIS DE CORES & DESIGN SYSTEM
+   ========================================================================== */
+:root {
+    --bg-principal: #f8fafc;
+    --texto-principal: #0f172a;
+    --primaria: #0284c7;
+    --primaria-hover: #0369a1;
+    --secundario: #4338ca;
+    --destaque-card: #e0f2fe;
+    --card-bg: #ffffff;
+    --modal-bg: #ffffff;
+    --borda-card: #cbd5e1;
+    --foco-visivel: #d97706; /* Indicador de foco visual por teclado */
+    --barra-bg: #0f172a;
+    --barra-texto: #ffffff;
+}
+
+/* MODO DE ALTO CONTRASTE */
+body.alto-contraste {
+    --bg-principal: #000000;
+    --texto-principal: #ffffff;
+    --primaria: #ffff00;
+    --primaria-hover: #e6e600;
+    --secundario: #00ffff;
+    --destaque-card: #121212;
+    --card-bg: #000000;
+    --modal-bg: #000000;
+    --borda-card: #ffff00;
+    --foco-visivel: #00ff00;
+    --barra-bg: #000000;
+    --barra-texto: #ffffff;
+}
+
+/* FILTROS SIMULADORES DE DALTONISMO */
+body.simular-deuteranopia { filter: grayscale(0.3) hue-rotate(180deg); }
+body.simular-protanopia { filter: grayscale(0.5) sepia(0.6); }
+body.simular-tritanopia { filter: hue-rotate(90deg); }
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* ==========================================================================
+   2. REGRAS GERAIS E ESTRUTURA
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-principal);
+    color: var(--texto-principal);
+    line-height: 1.8;
+}
+
+/* FOCO VISÍVEL OBRIGATÓRIO (TECLADO / TAB) */
+*:focus-visible {
+    outline: 4px solid var(--foco-visivel) !important;
+    outline-offset: 4px;
+}
+
+/* ATALHOS DE NAVEGAÇÃO */
+.atalhos-navegacao {
+    position: absolute;
+    top: -100px;
+    left: 10px;
+    z-index: 3000;
+}
+
+.link-atalho {
+    display: inline-block;
+    background: #000000;
+    color: #ffffff;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #ffffff;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.link-atalho:focus {
+    position: fixed;
+    top: 10px;
+}
+
+/* ==========================================================================
+   3. BARRA SUPERIOR DE ACESSIBILIDADE (ESTILO GOVERNO / ENEM PARANÁ)
+   ========================================================================== */
+.barra-acessibilidade-enem {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--barra-bg);
+    color: var(--barra-texto);
+    padding: 10px 16px;
+    z-index: 2000;
+    border-bottom: 3px solid var(--primaria);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.container-acessibilidade {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.marca-governo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+}
+
+.simbolo-acessibilidade-topo {
+    font-size: 1.3rem;
+}
+
+.uf-tag {
+    background-color: var(--primaria);
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+body.alto-contraste .uf-tag {
+    color: #000000;
+}
+
+.projeto-tag {
+    font-size: 0.9rem;
+}
+
+.controles-acessibilidade {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.grupo-controle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-acessivel, .select-acessivel {
+    background-color: #ffffff;
+    color: #0f172a;
+    border: 2px solid var(--borda-card);
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.btn-acessivel:hover, .select-acessivel:hover {
+    background-color: #e2e8f0;
+}
+
+.btn-destaque {
+    background-color: #15803d;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-destaque:hover {
+    background-color: #166534;
+}
+
+/* ==========================================================================
+   4. BOTÃO FLUTUANTE DE ACESSIBILIDADE (CANTO DA TELA)
+   ========================================================================== */
+.widget-acessibilidade-flutuante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 5000;
+}
+
+.btn-widget-toggle {
+    background-color: var(--primaria);
+    color: #ffffff;
+    border: 3px solid #ffffff;
+    padding: 12px 18px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+body.alto-contraste .btn-widget-toggle {
+    color: #000000;
+    border-color: #ffff00;
+}
+
+.icone-widget {
+    font-size: 1.2rem;
+}
+
+.painel-widget-conteudo {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    width: 230px;
+    background-color: var(--card-bg);
+    color: var(--texto-principal);
+    border: 3px solid var(--primaria);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.painel-widget-conteudo h3 {
+    margin: 0 0 10px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.widget-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.widget-opcoes button {
+    background-color: var(--destaque-card);
+    color: var(--texto-principal);
+    border: 1px solid var(--borda-card);
+    padding: 8px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.widget-opcoes button:hover {
+    background-color: var(--primaria);
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   5. CABEÇALHO & MENU DA REVISTA
+   ========================================================================== */
+.header-revista {
+    text-align: center;
+    padding: 40px 20px 20px;
+}
+
+.badge-acessibilidade-titulo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--destaque-card);
+    color: var(--texto-principal);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border: 1px solid var(--borda-card);
+}
+
+.header-revista h1 {
+    font-size: 2.8rem;
+    margin: 12px 0 6px;
+}
+
+.header-revista h1 span {
+    color: var(--primaria);
+}
+
+.subtitulo {
+    font-size: 1.15rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.menu-categorias ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    margin: 0;
+    flex-wrap: wrap;
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--borda-card);
+    border-bottom: 1px solid var(--borda-card);
+}
+
+.menu-categorias a {
+    color: var(--texto-principal);
+    text-decoration: underline;
+    font-weight: bold;
+    padding: 6px 10px;
+}
+
+.btn-emergencia {
+    background-color: #b91c1c;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   6. LAYOUT PRINCIPAL (LAYOUT SIMÉTRICO DE DUAS COLUNAS)
+   ========================================================================== */
+main {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.artigo-destaque {
+    background-color: var(--destaque-card);
+    padding: 32px;
+    border-left: 8px solid var(--primaria);
+    border-radius: 8px;
+}
+
+.categoria-badge {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--primaria);
+}
+
+.divisor {
+    margin: 35px 0;
+    border: 0;
+    height: 2px;
+    background: var(--borda-card);
+}
+
+/* GRID SIMÉTRICO EQUILIBRADO */
+.artigos-grid-simetrico {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 850px) {
+    .artigos-grid-simetrico {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card-artigo {
+    background-color: var(--card-bg);
+    padding: 24px;
+    border-radius: 8px;
+    border: 2px solid var(--borda-card);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-tag {
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: var(--primaria);
+}
+
+.destaque-tech {
+    grid-column: 1 / -1;
+    background-color: var(--destaque-card);
+}
+
+/* ==========================================================================
+   7. GALERIA EXPLICATIVA E DETALHES (PROPORÇÃO 57% E 43%)
+   ========================================================================== */
+.galeria-revista-simetrica {
+    display: grid;
+    grid-template-columns: 57% 43%;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.detalhes-extras-grid {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: 57% 43%;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .galeria-revista-simetrica,
+    .detalhes-extras-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card-foto-revista {
+    background-color: var(--card-bg);
+    border: 2px solid var(--borda-card);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-foto-revista img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+    border-bottom: 2px solid var(--borda-card);
+}
+
+.detalhes-foto {
+    padding: 16px;
+}
+
+.detalhes-foto h4 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    color: var(--primaria);
+}
+
+.detalhes-foto p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   8. MODAL ACESSÍVEL & RODAPÉ
+   ========================================================================== */
+.modal-fundo {
+    display: none;
+    position: fixed;
+    z-index: 4000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-fundo:not([hidden]) {
+    display: flex;
+}
+
+.modal-conteudo {
+    background-color: var(--modal-bg);
+    color: var(--texto-principal);
+    padding: 30px;
+    border-radius: 12px;
+    border: 4px dashed var(--primaria);
+    max-width: 90%;
+    width: 520px;
+}
+
+.btn-fechar {
+    background-color: var(--primaria);
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+body.alto-contraste .btn-fechar {
+    color: #000000;
+}
+
+footer {
+    background-color: var(--barra-bg);
+    color: var(--barra-texto);
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+    border-top: 4px solid var(--primaria);
+}
